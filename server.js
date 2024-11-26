@@ -23,16 +23,21 @@ mongoose.connect(process.env.MONGODB_URI, {
 .catch((err) => console.error('MongoDB connection error:', err));
 
 const corsOptions = {
-  origin: 'http://localhost:3000', // Your Next.js frontend URL
+  origin: [
+    'http://localhost:3000', 
+    'https://akinde-pixels-website-ui.vercel.app',
+    // Add more origins as needed
+  ],
   optionsSuccessStatus: 200
 };
+
 app.use(cors(corsOptions));
 
 // Routes
 const reviewRoutes = require('./routes/reviews');
 app.use('/api/reviews', reviewRoutes);
 
-// Start server
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
